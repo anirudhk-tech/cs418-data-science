@@ -5,7 +5,7 @@ CS 418 Group Project
 ## Team
 
 - Anirudh Kuppili (anirudhk_tech)
-- Karim Nashawi (Karimnashawi)
+- Karim Nashawi (KarimNashawi)
 
 ## Research Question
 

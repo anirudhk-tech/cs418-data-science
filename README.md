@@ -31,11 +31,10 @@ crash type)?
 
 ### Secondary
 
-1. **NOAA hourly weather data** (Midway or O'Hare station, via NOAA
-   Climate Data Online). We'd join this to crash timestamps to cross-check
-   the crash report's self-reported weather field against actual recorded
-   conditions (precipitation, visibility, temperature) at the time of the
-   crash.
+1. **NOAA daily weather data (GHCND)** (Midway station, via NOAA Climate
+   Data Online). We'd join this to crash dates to cross-check the crash
+   report's self-reported weather field against actual recorded conditions
+   (precipitation, snow, temperature) on the day of the crash.
 2. **[Chicago Traffic Tracker - Historical Congestion Estimates by Segment](https://data.cityofchicago.org/Transportation/Chicago-Traffic-Tracker-Historical-Congestion-Esti/4g9f-3jbs)**
    (City of Chicago Data Portal). Speed/congestion estimates by road segment.
    We'd compare this against crash locations/times to see whether traffic
@@ -44,9 +43,26 @@ crash type)?
 
 ## Data Acquisition
 
-See `notebooks/data_acquisition.ipynb`. Basic shape, column types, and
-coverage for each dataset are reported there (filled in from actually running
-the notebook, not estimated).
+See `notebooks/data_acquisition.ipynb` for the full pull (column types, head
+of each dataframe, etc.). Basic shape and coverage, from actually running the
+notebook:
+
+| Dataset | Rows | Columns | Time span pulled | Geography |
+|---|---|---|---|---|
+| Traffic Crashes - Crashes | 50,000 | 49 | 2023-01-01 to 2024-12-31 (capped at `$limit=50000`) | Chicago |
+| Traffic Crashes - People | 50,000 | 28 | 2023-01-01 to 2024-12-31 (capped at `$limit=50000`) | Chicago |
+| NOAA daily weather (GHCND) | 317 | 5 | 2023-01-01 to 2023-01-31 | Midway station (GHCND:USW00014819) |
+| Traffic Tracker Congestion | 50,000 | 22 | 2024-06-11 to 2024-07-11 (capped at `$limit=50000`) | Chicago arterial segments |
+
+One row in Traffic Crashes - Crashes represents a single crash event. One row
+in Traffic Crashes - People represents one person involved in a crash (so
+multiple rows per crash). The crashes/people/congestion pulls are capped by
+`$limit=50000` and are not full history — crashes alone has 950K+ rows since
+2017; the `$where` window will be widened once we scope the actual modeling
+dataset. Columns we care most about in Crashes: `injuries_total`,
+`most_severe_injury`, `weather_condition`, `lighting_condition`,
+`roadway_surface_cond`, `road_defect`, `posted_speed_limit`, `crash_hour`,
+`crash_day_of_week`, `first_crash_type`.
 
 ## Setup
 

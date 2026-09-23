@@ -58,7 +58,7 @@ notebook:
 One row in Traffic Crashes - Crashes represents a single crash event. One row
 in Traffic Crashes - People represents one person involved in a crash (so
 multiple rows per crash). The crashes/people/congestion pulls are capped by
-`$limit=50000` and are not full history — crashes alone has 950K+ rows since
+`$limit=50000` and are not full history, crashes alone has 950K+ rows since
 2017; the `$where` window will be widened once we scope the actual modeling
 dataset. Columns we care most about in Crashes: `injuries_total`,
 `most_severe_injury`, `weather_condition`, `lighting_condition`,

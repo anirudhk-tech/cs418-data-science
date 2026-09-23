@@ -6,6 +6,7 @@ CS 418 Group Project
 
 - Anirudh Kuppili (anirudhk_tech)
 - Karim Nashawi (KarimNashawi)
+- Kareem Muftee (k-mufti)
 
 ## Research Question
 

@@ -51,4 +51,13 @@ if __name__ == "__main__":
     people.to_parquet("data/raw/people.parquet", index=False)
     print(f"  saved {people.shape}")
 
+    print("Fetching Traffic Tracker Congestion (single day, 2024-06-11)...")
+    congestion = fetch_all(
+        "https://data.cityofchicago.org/resource/4g9f-3jbs.json",
+        "time >= '2024-06-11T00:00:00' AND time < '2024-06-12T00:00:00'",
+        "time",
+    )
+    congestion.to_parquet("data/raw/congestion.parquet", index=False)
+    print(f"  saved {congestion.shape}")
+
     print("Done.")

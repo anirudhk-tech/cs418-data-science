@@ -8,6 +8,7 @@ CS 418 Group Project
 - Karim Nashawi (KarimNashawi)
 - Kareem Muftee (k-mufti)
 - Arslan Kamchybekov (ArslanKamchybekov)
+- Nguyen Tuan Kiet Ho (kiet08hogit)
 
 ## Research Question
 

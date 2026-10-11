@@ -33,17 +33,6 @@ crash type)?
    precise injury target and check whether person-level factors matter
    alongside crash-level ones.
 
-### Secondary
-
-1. **NOAA daily weather data (GHCND)** (Midway station, via NOAA Climate
-   Data Online). We'd join this to crash dates to cross-check the crash
-   report's self-reported weather field against actual recorded conditions
-   (precipitation, snow, temperature) on the day of the crash.
-2. **[Chicago Traffic Tracker - Historical Congestion Estimates by Segment](https://data.cityofchicago.org/Transportation/Chicago-Traffic-Tracker-Historical-Congestion-Esti/4g9f-3jbs)**
-   (City of Chicago Data Portal). Speed/congestion estimates by road segment.
-   We'd compare this against crash locations/times to see whether traffic
-   volume or congestion level is a confounder for the road-characteristic
-   controls in the model.
 
 ## Data Acquisition
 

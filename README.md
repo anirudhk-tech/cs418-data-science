@@ -106,6 +106,23 @@ model comparison to see which effects are independent. A first pass joining
 the Traffic Tracker Congestion dataset also hints that traffic
 speed/volume may be a relevant additional control.
 
+## Data Documentation
+
+Full datasheet, scope, codebook, recipe, FAIR info, and people/CARE
+considerations: [`DATASHEET.md`](DATASHEET.md).
+
+| Dataset | Source | License |
+|---|---|---|
+| Traffic Crashes - Crashes | [City of Chicago Data Portal](https://data.cityofchicago.org/Transportation/Traffic-Crashes-Crashes/85ca-t3if) | Chicago Data Portal terms of use (free public reuse) |
+| Traffic Crashes - People | [City of Chicago Data Portal](https://data.cityofchicago.org/Transportation/Traffic-Crashes-People/u6pd-qa9d) | Chicago Data Portal terms of use (free public reuse) |
+| Chicago Traffic Tracker Congestion (secondary) | [City of Chicago Data Portal](https://data.cityofchicago.org/Transportation/Chicago-Traffic-Tracker-Historical-Congestion-Esti/4g9f-3jbs) | Chicago Data Portal terms of use (free public reuse) |
+
+**Biggest limitation:** this data only covers crashes that actually get
+reported to CPD and entered into E-Crash, not every crash that happens in
+Chicago. Minor, no-injury crashes are probably underreported relative to
+injury crashes, which could bias our injury rate estimates upward and
+means our conclusions apply to "reported crashes," not "all crashes."
+
 ## Setup
 
 ```

@@ -2,6 +2,84 @@
 
 CS 418 Group Project
 
+## Main Findings (Narrative Analysis)
+
+- Overnight crashes (10pm-3am) are way more likely to result in injury than
+  midday crashes (10am-1pm), about an 18.7% vs 13.8% injury rate.
+- Weather looking "dangerous" (rain, snow, fog, etc.) barely matters once
+  you already know the road surface condition, it's basically the same
+  signal twice, not two separate risk factors.
+- Snow crashes have a *lower* injury rate than clear-weather crashes, which
+  is backwards from what we expected going in.
+
+### Finding 1: overnight crashes are riskier than midday ones
+
+We split crashes into two time windows, overnight (10pm-3am, n=28,925) and
+midday (10am-1pm, n=46,449), and looked at what share of each resulted in
+at least one injury. Midday sits at 13.8% (95% CI 13.5%-14.1%), overnight
+jumps to 18.7% (95% CI 18.2%-19.1%). That's a 4.9 percentage point gap and
+the confidence intervals don't even come close to overlapping, a two
+proportion z-test gives p = 6e-71, so this is not noise. We checked if this
+was just a volume thing (fewer cars overnight = more room to speed) and it
+lines up with that story, though we can't fully prove speed is the reason
+since we don't have actual vehicle speed at time of crash, only the posted
+limit. Either way: when a crash does happen overnight, it's meaningfully
+more likely to hurt someone than one that happens at midday.
+
+![Overnight crashes are more likely to cause injury than midday ones](figures/finding-1-overnight-vs-midday.png)
+
+### Finding 2: the "weather effect" mostly disappears once you control for road surface
+
+This is the one that surprised us. Going in, we expected rain/snow/fog to
+independently raise injury risk even after controlling for other stuff. We
+ran two logistic regressions: a baseline with just hour-of-day and a
+bad-weather flag, and a full model that adds lighting, road surface
+condition, road defect, and posted speed limit. In the baseline, bad
+weather pushes injury odds up by a factor of 1.26 (p = 2e-40), seems
+real. But in the full model, that drops to basically nothing, 1.05x,
+p = 0.12, not significant anymore. We dug into why and it's pretty simple:
+weather and road surface are basically measuring the same thing twice.
+83% of "bad weather" crashes happen on a wet/snowy/icy surface, vs only
+3.6% of "clear/other" weather crashes. So once the model already knows the
+road is wet, it doesn't learn much new from also being told it's raining.
+This isn't really a null result so much as "weather's effect runs through
+road surface, not around it."
+
+![Bad weather's apparent effect mostly disappears once road surface is known](figures/finding-2-weather-odds-ratio.png)
+
+### Finding 3: snow crashes are somehow safer than clear-weather ones
+
+Clear weather has a 16.4% injury rate (CI 16.2%-16.6%), rain is worse at
+19.9% (CI 19.3%-20.5%), but snow comes in lower than both at 14.4% (CI
+13.4%-15.5%). A direct snow vs clear z-test gives p = 0.0005, so this
+isn't just random variation, snow really is lower. We tried to break this
+by checking if posted speed limit explains it (maybe snow crashes just
+happen on lower-speed streets), but average speed limit is basically
+identical across clear/rain/snow (all ~28.5-29 mph), so that's not it. Our
+best guess, which we can't fully confirm with this data, is that people
+visibly drive more cautiously when it's actively snowing than when
+roads are merely wet from rain, since snow is more obviously dangerous
+looking out the windshield. This one's still an open question for us,
+we'd want road-surface-specific speed data or a before/after snowstorm
+comparison to actually confirm it.
+
+![Snow crashes are less likely to cause injury than rain or clear-weather ones](figures/finding-3-snow-surprise.png)
+
+### Analyses we tried and didn't use
+
+- We looked at lighting condition on its own (darkness vs daylight) but it
+  tracks crash hour so closely that it didn't add a separate story beyond
+  Finding 1, would've just been repeating ourselves.
+- We tried joining the Traffic Tracker Congestion data into the injury
+  model directly, but we only have one day of congestion data pulled so
+  far (see `EDA.md` relationship 4), not enough to put a real number on it
+  for this checkpoint. Flagged as a next step.
+- We checked crash_day_of_week as a predictor but the differences between
+  days were small and not worth a whole finding on their own.
+
+Full notebook behind these numbers: [`notebooks/narrative.ipynb`](notebooks/narrative.ipynb)
+(builds on `eda.ipynb`). Longer notes on checks we ran: [`NARRATIVE.md`](NARRATIVE.md).
+
 ## Team
 
 - Anirudh Kuppili (anirudhk_tech)
